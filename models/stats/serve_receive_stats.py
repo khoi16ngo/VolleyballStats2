@@ -1,9 +1,5 @@
-from models.quality import Quality
-from services.user_input_fetchers.quality_fetcher import find_perfect_quality, find_good_quality, find_ok_quality, find_poor_quality, find_error_quality
-
-
 class ServeReceiveStats:
-    def __init__(self):
+    def __init__(self) -> None:
         self.perfect_serves = 0
         self.great_serves = 0
         self.medium_serves = 0

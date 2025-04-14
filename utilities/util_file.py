@@ -1,12 +1,12 @@
 import mimetypes
 import os
-from services.stats.assist_stat_collector import get_assist_stats_headers
-from services.stats.attack_stat_collector import get_attack_stats_headers
-from services.stats.block_stat_collector import get_block_stats_headers
-from services.stats.dig_stat_collector import get_dig_stats_headers
-from services.stats.free_ball_stats import get_free_ball_stats_headers
-from services.stats.serve_receive_stat_collector import get_serve_receive_stats_headers
-from services.stats.serve_stat_collector import get_serve_stats_headers
+from services.stat_collectors.assist_stat_collector import get_assist_stats_headers
+from services.stat_collectors.attack_stat_collector import get_attack_stats_headers
+from services.stat_collectors.block_stat_collector import get_block_stats_headers
+from services.stat_collectors.dig_stat_collector import get_dig_stats_headers
+from services.stat_collectors.free_ball_stat_collector import get_free_ball_stats_headers
+from services.stat_collectors.serve_receive_stat_collector import get_serve_receive_stats_headers
+from services.stat_collectors.serve_stat_collector import get_serve_stats_headers
 
 def get_file_extension(file_name: str) -> str:
     '''

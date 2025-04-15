@@ -1,50 +1,50 @@
 class ServeReceiveStats:
     def __init__(self) -> None:
-        self.perfect_serves = 0
-        self.great_serves = 0
-        self.medium_serves = 0
-        self.poor_serves = 0
-        self.serve_errors = 0
-        self.total_serves = 0
+        self.perfect_serve_receives = 0
+        self.great_serve_receives = 0
+        self.medium_serve_receives = 0
+        self.poor_serve_receives = 0
+        self.serve_receive_errors = 0
+        self.total_serve_receives = 0
         self.in_system_percentage = 0.0
         self.out_of_system_percentage = 0.0
-        self.serve_average = 0.0
+        self.serve_receive_average = 0.0
 
-    def set_perfect_serves(self, perfect_serves: int) -> None:
+    def set_perfect_serve_receives(self, perfect_serve_receives: int) -> None:
         '''
-        Set the number of perfect serves from the player serve receive stats.
+        Set the number of perfect serve_receives from the player serve receive stats.
         '''
-        self.perfect_serves = perfect_serves
+        self.perfect_serve_receives = perfect_serve_receives
 
-    def set_great_serves(self, great_serves: int) -> None:
+    def set_great_serve_receives(self, great_serve_receives: int) -> None:
         '''
-        Set the number of great serves from the player serve receive stats.
+        Set the number of great serve_receives from the player serve receive stats.
         '''
-        self.great_serves = great_serves
+        self.great_serve_receives = great_serve_receives
 
-    def set_medium_serves(self, medium_serves: int) -> None:
+    def set_medium_serve_receives(self, medium_serve_receives: int) -> None:
         '''
-        Set the number of medium serves from the player serve receive stats.
+        Set the number of medium serve_receives from the player serve receive stats.
         '''
-        self.medium_serves = medium_serves
+        self.medium_serve_receives = medium_serve_receives
 
-    def set_poor_serves(self, poor_serves: int) -> None:
+    def set_poor_serve_receives(self, poor_serve_receives: int) -> None:
         '''
-        Set the number of poor serves from the player serve receive stats.
+        Set the number of poor serve_receives from the player serve receive stats.
         '''
-        self.poor_serves = poor_serves
+        self.poor_serve_receives = poor_serve_receives
 
-    def set_serve_errors(self, serve_errors: int) -> None:
+    def set_serve_receive_errors(self, serve_receive_errors: int) -> None:
         '''
         Set the number of serve errors from the player serve receive stats.
         '''
-        self.serve_errors = serve_errors
+        self.serve_receive_errors = serve_receive_errors
 
-    def set_total_serves(self, total_serves: int) -> None:
+    def set_total_serve_receives(self, total_serve_receives: int) -> None:
         '''
-        Set the total number of serves from the player serve receive stats.
+        Set the total number of serve_receives from the player serve receive stats.
         '''
-        self.total_serves = total_serves
+        self.total_serve_receives = total_serve_receives
 
     def set_in_system_percentage(self, in_system_percentage: float) -> None:
         '''
@@ -58,11 +58,11 @@ class ServeReceiveStats:
         '''
         self.out_of_system_percentage = out_of_system_percentage
 
-    def set_serve_average(self, serve_average: float) -> None:
+    def set_serve_receive_average(self, serve_receive_average: float) -> None:
         '''
         Set the average of the serve receive stats.
         '''
-        self.serve_average = serve_average
+        self.serve_receive_average = serve_receive_average
         
         
 

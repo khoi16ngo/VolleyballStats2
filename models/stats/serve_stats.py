@@ -1,6 +1,6 @@
 class ServeStats:
     def __init__(self) -> None:
-        self.perfect_serves = 0
+        self.aces = 0
         self.great_serves = 0
         self.medium_serves = 0
         self.poor_serves = 0
@@ -10,11 +10,11 @@ class ServeStats:
         self.opponent_in_system_percentage = 0.0
         self.serve_average = 0.0
 
-    def set_perfect_serves(self, perfect_serves: int) -> None:
+    def set_aces(self, aces: int) -> None:
         '''
         Set the number of perfect serves from the player serve stats.
         '''
-        self.perfect_serves = perfect_serves
+        self.aces = aces
 
     def set_great_serves(self, great_serves: int) -> None:
         '''

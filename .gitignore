@@ -177,5 +177,8 @@ pyrightconfig.json
 
 # Data examples
 /data/clean_stats/*
+!/data/clean_stats/test.txt
 /data/raw_stats/*
+!/data/raw_stats/test.txt
 /data/results/*
+!/data/results/test.txt

@@ -23,4 +23,4 @@ Remember the player number and quality value should be between 0-99 and the acti
 
 The output files will be under *data/clean_stats* and *data/results*. 
 The *clean_stats* folder holds the cleaned version of your raw stat files. 
-The *results* folder holds the final results of each raw stat file and a total file for all raw stat files inputted.
+The *results* folder holds the final results of each raw stat file and a total file for all raw stat files inputted. The results can be imported in your choice of spreadsheet reader for better readability.

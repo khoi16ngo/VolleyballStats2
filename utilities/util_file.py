@@ -35,7 +35,7 @@ def get_file_name_from_file_path(file_path: str) -> str:
     file_path_list = normalized_path.split(os.path.sep)
 
     # Get the last 'number_path' components
-    return file_path_list[-1:]
+    return file_path_list[-1]
 
 def get_file_headers() -> list:
     '''

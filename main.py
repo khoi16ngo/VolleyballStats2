@@ -1,4 +1,5 @@
 import sys
+from models import user_inputs
 from program import Program
 from services.user_prompters.action_prompter import askForActions
 from services.user_prompters.file_prompter import askForRawFiles
@@ -28,5 +29,6 @@ if __name__ == "__main__":
         print("No CSV files entered. Exiting program.")
         sys.exit(1)
 
-    program = Program(players, qualities, actions, raw_data_file_paths)
+    user_inputs = user_inputs.UserInputs(players, actions, qualities, raw_data_file_paths)
+    program = Program(user_inputs)
     program.run()

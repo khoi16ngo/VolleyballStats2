@@ -24,7 +24,7 @@ def askForQualities() -> list:
                 continue
 
             # Add quality to list
-            qualities.append(Quality(quality, value))
+            qualities.append(Quality(quality, int(value)))
             break
     
     return qualities

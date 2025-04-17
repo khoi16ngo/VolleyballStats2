@@ -7,7 +7,32 @@ def askForPlayers() -> list:
     """
 
     players = []
+    while True:
+        print("How many players are on the team?")
+        number_players = input("Number players: ")
+        if number_players == "":
+            print("No player number entered. Please try again.")
+        elif not number_players.isnumeric():
+            print("Invalid player number entered. Please try again.")
+        else:
+            number_players = int(number_players)
+            break
+    
     print("Please enter the names and numbers of the players on the team.")
+    for i in range(number_players):
+        players = _get_player_from_user(players)
+    
+    # Ask if there are more players
+    while True:
+        exit = input("Are there more players? (y/n): ").strip().lower()
+        if exit == "y":
+            players = _get_player_from_user(players)
+        elif exit == "n":
+            return players
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
+
+def _get_player_from_user(players: list[Player]) -> list[Player]:
     while True:
         # Get player name
         playerName = input("Enter player name: ").strip().title()
@@ -30,13 +55,6 @@ def askForPlayers() -> list:
         # Add player to list
         print(f"Adding player ... {playerName} ({playerNumber})")
         players.append(Player(playerName, int(playerNumber)))
-
-        # Ask if there are more players
-        while True:
-            exit = input("Are there more players? (y/n): ").strip().lower()
-            if exit == "y":
-                break
-            elif exit == "n":
-                return players
-            else:
-                print("Invalid input. Please enter 'y' or 'n'.")
+        break
+    
+    return players

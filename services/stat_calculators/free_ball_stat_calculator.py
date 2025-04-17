@@ -8,11 +8,11 @@ def calculate_player_free_ball_stats(user_inputs: UserInputs, player_raw_free_ba
     Returns an FreeBallStats object with the calculated stats.
     '''
     player_free_ball_stats = FreeBallStats()
-    player_free_ball_stats.set_perfect_free_balls(_get_perfect_free_balls(user_inputs.perfect_quality, player_raw_free_ball_stats))
-    player_free_ball_stats.set_great_free_balls(_get_great_free_balls(user_inputs.good_quality, player_raw_free_ball_stats))  
-    player_free_ball_stats.set_medium_free_balls(_get_medium_free_balls(user_inputs.ok_quality, player_raw_free_ball_stats))   
-    player_free_ball_stats.set_poor_free_balls(_get_poor_free_balls(user_inputs.poor_quality, player_raw_free_ball_stats))
-    player_free_ball_stats.set_free_ball_errors(_get_free_ball_errors(user_inputs.error_quality, player_raw_free_ball_stats))
+    player_free_ball_stats.set_perfect_free_balls(_get_perfect_free_balls(user_inputs, player_raw_free_ball_stats))
+    player_free_ball_stats.set_great_free_balls(_get_great_free_balls(user_inputs, player_raw_free_ball_stats))  
+    player_free_ball_stats.set_medium_free_balls(_get_medium_free_balls(user_inputs, player_raw_free_ball_stats))   
+    player_free_ball_stats.set_poor_free_balls(_get_poor_free_balls(user_inputs, player_raw_free_ball_stats))
+    player_free_ball_stats.set_free_ball_errors(_get_free_ball_errors(user_inputs, player_raw_free_ball_stats))
     player_free_ball_stats.set_total_free_balls(_get_total_free_balls(user_inputs, player_raw_free_ball_stats))
     player_free_ball_stats.set_free_ball_average(_get_free_ball_average(user_inputs, player_raw_free_ball_stats))
     return player_free_ball_stats
@@ -21,37 +21,31 @@ def _get_perfect_free_balls(user_inputs: UserInputs, player_free_ball_raw_stats:
     '''
     Get the number of perfect free balls from the player free ball stats.
     '''
-    return _get_quality_free_balls(user_inputs.perfect_quality, player_free_ball_raw_stats)
+    return player_free_ball_raw_stats[user_inputs.perfect_quality.value]
 
 def _get_great_free_balls(user_inputs: UserInputs, player_free_ball_raw_stats: dict) -> int:
     '''
     Get the number of great free balls from the player free ball stats.
     '''
-    return _get_quality_free_balls(user_inputs.good_quality, player_free_ball_raw_stats)
+    return player_free_ball_raw_stats[user_inputs.good_quality.value]
 
 def _get_medium_free_balls(user_inputs: UserInputs, player_free_ball_raw_stats: dict) -> int:
     '''
     Get the number of medium free balls from the player free ball stats.
     '''
-    return _get_quality_free_balls(user_inputs.ok_quality, player_free_ball_raw_stats)
+    return player_free_ball_raw_stats[user_inputs.ok_quality.value]
 
 def _get_poor_free_balls(user_inputs: UserInputs, player_free_ball_raw_stats: dict) -> int:
     '''
     Get the number of poor free balls from the player free ball stats.
     '''
-    return _get_quality_free_balls(user_inputs.poor_quality, player_free_ball_raw_stats)
+    return player_free_ball_raw_stats[user_inputs.poor_quality.value]
 
 def _get_free_ball_errors(user_inputs: UserInputs, player_free_ball_raw_stats: dict) -> int:
     '''
     Get the number of free ball errors from the player free ball stats.
     '''
-    return _get_quality_free_balls(user_inputs.error_quality, player_free_ball_raw_stats)
-
-def _get_quality_free_balls(quality: Quality, player_free_ball_raw_stats: dict) -> int:
-    '''
-    Get the number of free balls of a specific quality from the player free ball stats.
-    '''
-    return player_free_ball_raw_stats[quality.value]
+    return player_free_ball_raw_stats[user_inputs.error_quality.value]
 
 def _get_total_free_balls(user_inputs: UserInputs, player_raw_free_ball_stats: dict) -> int:
     '''
@@ -79,7 +73,7 @@ def _get_free_ball_average(user_inputs: UserInputs, player_raw_free_ball_stats: 
     if total_free_balls == 0:
         return 0.0
     
-    total_weighted_free_balls = (_get_perfect_free_balls() * 4) + (_get_great_free_balls() * 3) + (_get_medium_free_balls() * 2) + (_get_poor_free_balls() * 1) + (_get_free_ball_errors() * 0.5)
+    total_weighted_free_balls = (_get_perfect_free_balls(user_inputs, player_raw_free_ball_stats) * 4) + (_get_great_free_balls(user_inputs, player_raw_free_ball_stats) * 3) + (_get_medium_free_balls(user_inputs, player_raw_free_ball_stats) * 2) + (_get_poor_free_balls(user_inputs, player_raw_free_ball_stats) * 1) + (_get_free_ball_errors(user_inputs, player_raw_free_ball_stats) * 0.5)
     return total_weighted_free_balls / total_free_balls
 
 

@@ -8,11 +8,11 @@ def calculate_player_block_stats(user_inputs: UserInputs, player_raw_block_stats
     Returns a BlockStats object with the calculated stats.
     '''
     player_block_stats = BlockStats()
-    player_block_stats.set_perfect_blocks(_get_perfect_blocks(user_inputs.perfect_quality, player_raw_block_stats))
-    player_block_stats.set_great_blocks(_get_great_blocks(user_inputs.good_quality, player_raw_block_stats))  
-    player_block_stats.set_medium_blocks(_get_medium_blocks(user_inputs.ok_quality, player_raw_block_stats))   
-    player_block_stats.set_poor_blocks(_get_poor_blocks(user_inputs.poor_quality, player_raw_block_stats))
-    player_block_stats.set_block_errors(_get_block_errors(user_inputs.error_quality, player_raw_block_stats))
+    player_block_stats.set_perfect_blocks(_get_perfect_blocks(user_inputs, player_raw_block_stats))
+    player_block_stats.set_great_blocks(_get_great_blocks(user_inputs, player_raw_block_stats))  
+    player_block_stats.set_medium_blocks(_get_medium_blocks(user_inputs, player_raw_block_stats))   
+    player_block_stats.set_poor_blocks(_get_poor_blocks(user_inputs, player_raw_block_stats))
+    player_block_stats.set_block_errors(_get_block_errors(user_inputs, player_raw_block_stats))
     player_block_stats.set_total_blocks(_get_total_blocks(user_inputs, player_raw_block_stats))
     player_block_stats.set_block_average(_get_block_average(user_inputs, player_raw_block_stats))
     return player_block_stats
@@ -21,37 +21,31 @@ def _get_perfect_blocks(user_inputs: UserInputs, player_block_raw_stats: dict) -
     '''
     Get the number of perfect blocks from the player block stats.
     '''
-    return _get_quality_blocks(user_inputs.perfect_quality, player_block_raw_stats)
+    return player_block_raw_stats[user_inputs.perfect_quality.value]
 
 def _get_great_blocks(user_inputs: UserInputs, player_block_raw_stats: dict) -> int:
     '''
     Get the number of great blocks from the player block stats.
     '''
-    return _get_quality_blocks(user_inputs.good_quality, player_block_raw_stats)
+    return player_block_raw_stats[user_inputs.good_quality.value]
 
 def _get_medium_blocks(user_inputs: UserInputs, player_block_raw_stats: dict) -> int:
     '''
     Get the number of medium blocks from the player block stats.
     '''
-    return _get_quality_blocks(user_inputs.ok_quality, player_block_raw_stats)
+    return player_block_raw_stats[user_inputs.ok_quality.value]
 
 def _get_poor_blocks(user_inputs: UserInputs, player_block_raw_stats: dict) -> int:
     '''
     Get the number of poor blocks from the player block stats.
     '''
-    return _get_quality_blocks(user_inputs.poor_quality, player_block_raw_stats)
+    return player_block_raw_stats[user_inputs.poor_quality.value]
 
 def _get_block_errors(user_inputs: UserInputs, player_block_raw_stats: dict) -> int:
     '''
     Get the number of block errors from the player block stats.
     '''
-    return _get_quality_blocks(user_inputs.error_quality, player_block_raw_stats)
-
-def _get_quality_blocks(quality: Quality, player_block_raw_stats: dict) -> int:
-    '''
-    Get the number of blocks of a specific quality from the player block stats.
-    '''
-    return player_block_raw_stats[quality.value]
+    return player_block_raw_stats[user_inputs.error_quality.value]
 
 def _get_total_blocks(user_inputs: UserInputs, player_raw_block_stats: dict) -> int:
     '''
@@ -79,7 +73,7 @@ def _get_block_average(user_inputs: UserInputs, player_raw_block_stats: dict) ->
     if total_blocks == 0:
         return 0.0
     
-    total_weighted_blocks = (_get_perfect_blocks() * 4) + (_get_great_blocks() * 3) + (_get_medium_blocks() * 2) + (_get_poor_blocks() * 1) + (_get_block_errors() * 0.5)
+    total_weighted_blocks = (_get_perfect_blocks(user_inputs, player_raw_block_stats) * 4) + (_get_great_blocks(user_inputs, player_raw_block_stats) * 3) + (_get_medium_blocks(user_inputs, player_raw_block_stats) * 2) + (_get_poor_blocks(user_inputs, player_raw_block_stats) * 1) + (_get_block_errors(user_inputs, player_raw_block_stats) * 0.5)
     return total_weighted_blocks / total_blocks
 
 

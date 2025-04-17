@@ -8,11 +8,11 @@ def calculate_player_assist_stats(user_inputs: UserInputs, player_raw_assist_sta
     Returns an AssistStats object with the calculated stats.
     '''
     player_assist_stats = AssistStats()
-    player_assist_stats.set_perfect_assists(_get_perfect_assists(user_inputs.perfect_quality, player_raw_assist_stats))
-    player_assist_stats.set_great_assists(_get_great_assists(user_inputs.good_quality, player_raw_assist_stats))  
-    player_assist_stats.set_medium_assists(_get_medium_assists(user_inputs.ok_quality, player_raw_assist_stats))   
-    player_assist_stats.set_poor_assists(_get_poor_assists(user_inputs.poor_quality, player_raw_assist_stats))
-    player_assist_stats.set_assist_errors(_get_assist_errors(user_inputs.error_quality, player_raw_assist_stats))
+    player_assist_stats.set_perfect_assists(_get_perfect_assists(user_inputs, player_raw_assist_stats))
+    player_assist_stats.set_great_assists(_get_great_assists(user_inputs, player_raw_assist_stats))  
+    player_assist_stats.set_medium_assists(_get_medium_assists(user_inputs, player_raw_assist_stats))   
+    player_assist_stats.set_poor_assists(_get_poor_assists(user_inputs, player_raw_assist_stats))
+    player_assist_stats.set_assist_errors(_get_assist_errors(user_inputs, player_raw_assist_stats))
     player_assist_stats.set_total_assists(_get_total_assists(user_inputs, player_raw_assist_stats))
     player_assist_stats.set_assist_average(_get_assist_average(user_inputs, player_raw_assist_stats))
     return player_assist_stats
@@ -21,37 +21,31 @@ def _get_perfect_assists(user_inputs: UserInputs, player_assist_raw_stats: dict)
     '''
     Get the number of perfect assists from the player assist stats.
     '''
-    return _get_quality_assists(user_inputs.perfect_quality, player_assist_raw_stats)
+    return player_assist_raw_stats[user_inputs.perfect_quality.value]
 
 def _get_great_assists(user_inputs: UserInputs, player_assist_raw_stats: dict) -> int:
     '''
     Get the number of great assists from the player assist stats.
     '''
-    return _get_quality_assists(user_inputs.good_quality, player_assist_raw_stats)
+    return player_assist_raw_stats[user_inputs.good_quality.value]
 
 def _get_medium_assists(user_inputs: UserInputs, player_assist_raw_stats: dict) -> int:
     '''
     Get the number of medium assists from the player assist stats.
     '''
-    return _get_quality_assists(user_inputs.ok_quality, player_assist_raw_stats)
+    return player_assist_raw_stats[user_inputs.ok_quality.value]
 
 def _get_poor_assists(user_inputs: UserInputs, player_assist_raw_stats: dict) -> int:
     '''
     Get the number of poor assists from the player assist stats.
     '''
-    return _get_quality_assists(user_inputs.poor_quality, player_assist_raw_stats)
+    return player_assist_raw_stats[user_inputs.poor_quality.value]
 
 def _get_assist_errors(user_inputs: UserInputs, player_assist_raw_stats: dict) -> int:
     '''
     Get the number of assist errors from the player assist stats.
     '''
-    return _get_quality_assists(user_inputs.error_quality, player_assist_raw_stats)
-
-def _get_quality_assists(quality: Quality, player_assist_raw_stats: dict) -> int:
-    '''
-    Get the number of assists of a specific quality from the player assist stats.
-    '''
-    return player_assist_raw_stats[quality.value]
+    return player_assist_raw_stats[user_inputs.error_quality.value]
 
 def _get_total_assists(user_inputs: UserInputs, player_raw_assist_stats: dict) -> int:
     '''
@@ -79,7 +73,7 @@ def _get_assist_average(user_inputs: UserInputs, player_raw_assist_stats: dict) 
     if total_assists == 0:
         return 0.0
     
-    total_weighted_assists = (_get_perfect_assists() * 4) + (_get_great_assists() * 3) + (_get_medium_assists() * 2) + (_get_poor_assists() * 1) + (_get_assist_errors() * 0.5)
+    total_weighted_assists = (_get_perfect_assists(user_inputs, player_raw_assist_stats) * 4) + (_get_great_assists(user_inputs, player_raw_assist_stats) * 3) + (_get_medium_assists(user_inputs, player_raw_assist_stats) * 2) + (_get_poor_assists(user_inputs, player_raw_assist_stats) * 1) + (_get_assist_errors(user_inputs, player_raw_assist_stats) * 0.5)
     return total_weighted_assists / total_assists
 
 

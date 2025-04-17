@@ -8,11 +8,11 @@ def calculate_player_attack_stats(user_inputs: UserInputs, player_attack_raw_sta
     Returns an AttackStats object with the calculated stats.
     '''
     player_attack_stats = AttackStats()
-    player_attack_stats.set_kills(_get_kills(user_inputs.perfect_quality, player_attack_raw_stats))
-    player_attack_stats.set_great_attacks(_get_great_attacks(user_inputs.good_quality, player_attack_raw_stats))  
-    player_attack_stats.set_medium_attacks(_get_medium_attacks(user_inputs.ok_quality, player_attack_raw_stats))   
-    player_attack_stats.set_poor_attacks(_get_poor_attacks(user_inputs.poor_quality, player_attack_raw_stats))
-    player_attack_stats.set_attack_errors(_get_attack_errors(user_inputs.error_quality, player_attack_raw_stats))
+    player_attack_stats.set_kills(_get_kills(user_inputs, player_attack_raw_stats))
+    player_attack_stats.set_great_attacks(_get_great_attacks(user_inputs, player_attack_raw_stats))  
+    player_attack_stats.set_medium_attacks(_get_medium_attacks(user_inputs, player_attack_raw_stats))   
+    player_attack_stats.set_poor_attacks(_get_poor_attacks(user_inputs, player_attack_raw_stats))
+    player_attack_stats.set_attack_errors(_get_attack_errors(user_inputs, player_attack_raw_stats))
     player_attack_stats.set_total_attacks(_get_total_attacks(user_inputs, player_attack_raw_stats))
     player_attack_stats.set_hitting_average(_get_hitting_average(user_inputs, player_attack_raw_stats))
     player_attack_stats.set_kill_percentage(_get_kill_percentage(user_inputs, player_attack_raw_stats))
@@ -23,37 +23,31 @@ def _get_kills(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
     Get the number of perfect attacks from the player attack stats.
     '''
-    return _get_quality_attacks(user_inputs.perfect_quality, player_attack_raw_stats)
+    return player_attack_raw_stats[user_inputs.perfect_quality.value]
 
 def _get_great_attacks(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
     Get the number of great attacks from the player attack stats.
     '''
-    return _get_quality_attacks(user_inputs.good_quality, player_attack_raw_stats)
+    return player_attack_raw_stats[user_inputs.good_quality.value]
 
 def _get_medium_attacks(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
     Get the number of medium attacks from the player attack stats.
     '''
-    return _get_quality_attacks(user_inputs.ok_quality, player_attack_raw_stats)
+    return player_attack_raw_stats[user_inputs.ok_quality.value]
 
 def _get_poor_attacks(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
     Get the number of poor attacks from the player attack stats.
     '''
-    return _get_quality_attacks(user_inputs.poor_quality, player_attack_raw_stats)
+    return player_attack_raw_stats[user_inputs.poor_quality.value]
 
 def _get_attack_errors(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
     Get the number of attack errors from the player attack stats.
     '''
-    return _get_quality_attacks(user_inputs.error_quality, player_attack_raw_stats)
-
-def _get_quality_attacks(quality: Quality, player_attack_raw_stats: dict) -> int:
-    '''
-    Get the number of attacks of a specific quality from the player attack stats.
-    '''
-    return player_attack_raw_stats[quality.value]
+    return player_attack_raw_stats[user_inputs.error_quality.value]
 
 def _get_total_attacks(user_inputs: UserInputs, player_attack_raw_stats: dict) -> int:
     '''
@@ -108,7 +102,7 @@ def _get_hitting_average(user_inputs: UserInputs, player_attack_raw_stats: dict)
     if total_attacks == 0:
         return 0.0
     
-    total_weighted_attacks = (_get_kills() * 4) + (_get_great_attacks() * 3) + (_get_medium_attacks() * 2) + (_get_poor_attacks() * 1) + (_get_attack_errors() * 0.5)
+    total_weighted_attacks = (_get_kills(user_inputs, player_attack_raw_stats) * 4) + (_get_great_attacks(user_inputs, player_attack_raw_stats) * 3) + (_get_medium_attacks(user_inputs, player_attack_raw_stats) * 2) + (_get_poor_attacks(user_inputs, player_attack_raw_stats) * 1) + (_get_attack_errors(user_inputs, player_attack_raw_stats) * 0.5)
     return total_weighted_attacks /total_attacks
 
 

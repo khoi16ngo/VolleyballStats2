@@ -1,5 +1,5 @@
 import re
-from utilities.util_file import get_last_n_file_path, remove_file_extension
+from utilities.util_file import file_exists, get_file_name_from_file_path, remove_file_extension
 
 def clean_text_file(file_path: str) -> str:
     '''
@@ -9,6 +9,9 @@ def clean_text_file(file_path: str) -> str:
     Returns the cleaned file name.
     '''
     clean_data = []
+
+    if not file_exists(file_path):
+        raise FileNotFoundError(f"The file '{file_path}' does not exist.")
 
     # Open the file and read it line by line
     with open(file_path, 'r') as file:
@@ -52,5 +55,5 @@ def _get_clean_file_name(file_path: str) -> str:
     """
     Returns the cleaned file name based on the original file path.
     """
-    file_path = get_last_n_file_path(file_path, 2)
-    return "./data/clean_stats/" + remove_file_extension(file_path) + "_cleaned.txt"
+    file_name = get_file_name_from_file_path(file_path)
+    return "./data/clean_stats/" + remove_file_extension(file_name) + "_cleaned.txt"

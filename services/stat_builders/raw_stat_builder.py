@@ -38,11 +38,21 @@ def build_raw_player_stats(user_inputs: UserInputs, raw_player_stats: list) -> d
     # Loop through each line in the raw player stats list and then add to the count for the action and quality
     for raw_player_stat in raw_player_stats:
         # Split each line into format "<play_number> <action> <quality>"
-        player_number, action, quality = raw_player_stat.strip().split()
-        player_number = int(player_number)
-        quality = int(quality)
+        raw_player_number, action, raw_quality = raw_player_stat.strip().split()
+        player_number = int(raw_player_number)
+        quality = int(raw_quality)
 
         # Increase count by one if action and quality performed for player
+        if not player_number in calculated_player_stats:
+            print(f"Player number {player_number} was not inputted originally, ignoring raw data line")
+            continue
+        elif not action in calculated_player_stats[player_number]["actions"]:
+            print(f"Action {action} was not inputted originally, ignoring raw data line")
+            continue
+        elif not quality in calculated_player_stats[player_number]["actions"][action]["qualities"]:
+            print(f"Quality {quality} was not inputted originally, ignoring raw data line")
+            continue
+
         calculated_player_stats[player_number]["actions"][action]["qualities"][quality] += 1
         
     return calculated_player_stats    

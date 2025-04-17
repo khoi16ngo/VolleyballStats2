@@ -11,7 +11,7 @@ from services.stat_collectors.dig_stat_collector import collect_dig_stats
 from services.stat_collectors.free_ball_stat_collector import collect_free_ball_stats
 from services.stat_collectors.serve_receive_stat_collector import collect_serve_receive_stats
 from services.stat_collectors.serve_stat_collector import collect_serve_stats
-from utilities.util_file import get_last_n_file_path, remove_file_extension, get_file_headers
+from utilities.util_file import get_file_name_from_file_path, remove_file_extension, get_file_headers
 from services.data.data_writer import print_stats_csv
 from services.data.data_reader import read_data_file
 from services.user_input_fetchers.action_fetcher import *
@@ -137,7 +137,7 @@ class Program:
         print("Finished cleaning raw data files!")
 
 
-    def _calculate_set_stats(self, file_paths: list):
+    def _calculate_set_stats(self):
         '''
         Calculate the stats for each player in each set.
         The stats are calculated by reading the raw data files and then calculating the stats for each player.
@@ -146,9 +146,9 @@ class Program:
         '''
         print("Calculating sets stats...")
 
-        for file_path in file_paths:
-            print(f"Calculating set stats for file {file_path}...")
-            raw_players_stats = read_data_file(file_path)
+        for clean_file_path in self.clean_file_paths:
+            print(f"Calculating set stats for file {clean_file_path}...")
+            raw_players_stats = read_data_file(clean_file_path)
 
             calculated_player_stats = build_raw_player_stats(self.user_inputs, raw_players_stats)   
 
@@ -158,17 +158,17 @@ class Program:
             # and write to a new file
             headers = get_file_headers()
             all_stats = [headers] + total_player_stats
-            file_path = get_last_n_file_path(file_path, 2)
-            new_cleaned_file_name = "./data/results/" + remove_file_extension(file_path) + "_stats.txt"
+            file_name = get_file_name_from_file_path(clean_file_path)
+            new_cleaned_file_name = "./data/results/" + remove_file_extension(file_name) + "_stats.txt"
             print_stats_csv(new_cleaned_file_name, all_stats)
-            print(f"Finished calculating set stats for file {file_path}!")
+            print(f"Finished calculating set stats for file {clean_file_path}!")
         print("Finished calculating sets stats!")
 
-    def _calculate_total_stats(self, file_paths: list):
+    def _calculate_total_stats(self):
         print("Calculating total stats...")
         raw_player_stats = []
-        for file_path in file_paths:
-            raw_player_stats += read_data_file(file_path)
+        for clean_file_path in self.clean_file_paths:
+            raw_player_stats += read_data_file(clean_file_path)
 
         calculated_player_stats = build_raw_player_stats(self.user_inputs, raw_player_stats)
 
